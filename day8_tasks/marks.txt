@@ -1,0 +1,5 @@
+priya 50
+rahul 40
+geetha 45
+krishnapriya 70
+preethika 10
