@@ -1,0 +1,6 @@
+Student Details: 
+{'ram': 89, 'shyam': 47, 'lalith': 52, 'koushik': 98, 'nandu': 80}
+Students scoring above 50 are: 
+{'ram': 89, 'lalith': 52, 'koushik': 98, 'nandu': 80}
+Average Marks: 
+73.2

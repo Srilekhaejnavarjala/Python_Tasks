@@ -1,0 +1,7 @@
+Employee Details:
+rithwik : 40000
+reshma : 50000
+sushma : 45000
+sunil : 25000
+lohith : 20000
+

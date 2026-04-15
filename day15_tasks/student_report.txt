@@ -1,0 +1,12 @@
+Student Report
+------------------------
+Stu_1 | Marks: 542 | Grade: A
+Stu_2 | Marks: 228 | Grade: D
+Stu_3 | Marks: 518 | Grade: A
+Stu_4 | Marks: 144 | Grade: D
+Stu_5 | Marks: 321 | Grade: C
+
+Statistics:
+Average: 350
+Max: 542
+Min: 144
