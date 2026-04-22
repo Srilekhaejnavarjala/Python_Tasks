@@ -111,7 +111,6 @@ total_sum = updated_data[['Broad Gauge', 'Metre Gauge', 'Narrow Gauge']].sum()
 print("Total sum of each gauge across all years is : ", total_sum)
 
 #4.2 Create a new structure (Series/DF) for totals
-
 summed_df = pd.Series(total_sum, name='Gauge_Totals')
 print(summed_df)
 
