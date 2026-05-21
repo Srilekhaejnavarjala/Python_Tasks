@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <title>Dashboard</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap"
+          rel="stylesheet">
+
+</head>
+
+<body>
+
+    {% include 'navbar.html' %}
+
+    <div class="dashboard-container">
+
+        <h1>TODO Dashboard Analytics</h1>
+
+        <div class="dashboard-cards">
+
+            <!-- Total Tasks -->
+
+            <div class="dashboard-card">
+
+                <h2>Total Tasks</h2>
+
+                <p>{{ total }}</p>
+
+            </div>
+
+            <!-- Completed Tasks -->
+
+            <div class="dashboard-card">
+
+                <h2>Completed Tasks</h2>
+
+                <p>{{ completed }}</p>
+
+            </div>
+
+            <!-- Pending Tasks -->
+
+            <div class="dashboard-card">
+
+                <h2>Pending Tasks</h2>
+
+                <p>{{ pending }}</p>
+
+            </div>
+
+        </div>
+
+        <!-- Success Message -->
+
+        <div class="success-message">
+
+            Todos read and updated successfully.
+
+        </div>
+
+    </div>
+
+    {% include 'footer.html' %}
+
+</body>
+</html>

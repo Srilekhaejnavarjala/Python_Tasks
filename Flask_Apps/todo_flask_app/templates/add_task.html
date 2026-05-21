@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <title>Add Tasks</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap"
+          rel="stylesheet">
+
+</head>
+
+<body>
+
+    {% include 'navbar.html' %}
+
+    <div class="container">
+
+        <!-- Left Section -->
+
+        <div class="left-section">
+
+            <h1>TODO Dashboard</h1>
+
+            <p>
+                Add, update and delete tasks dynamically.
+            </p>
+
+            <!-- Add Task Form -->
+
+            <form action="/add" method="POST" class="task-form">
+
+                <input type="text"
+                       name="title"
+                       placeholder="Enter new task"
+                       required>
+
+                <button type="submit">
+                    Add Task
+                </button>
+
+            </form>
+
+        </div>
+
+        <!-- Right Section -->
+
+        <div class="right-section">
+
+            <h2>Task List</h2>
+
+            {% for task in tasks %}
+
+            <div class="task-card">
+
+                <div>
+
+                    <h3>{{ task.title }}</h3>
+
+                    <span class="status">
+                        {{ task.status }}
+                    </span>
+
+                </div>
+
+                <div class="buttons">
+
+                    <a href="/update/{{ task.id }}"
+                       class="update-btn">
+
+                        Update
+
+                    </a>
+
+                    <a href="/delete/{{ task.id }}"
+                       class="delete-btn">
+
+                        Delete
+
+                    </a>
+
+                </div>
+
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+    </div>
+
+    {% include 'footer.html' %}
+
+</body>
+</html>

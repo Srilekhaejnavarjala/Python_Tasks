@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <title>TODO App</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap"
+          rel="stylesheet">
+
+</head>
+
+<body>
+
+    {% include 'navbar.html' %}
+
+    <div class="landing-container">
+
+        <div class="landing-content">
+
+            <h1>
+                Professional Flask TODO Application
+            </h1>
+
+            <p>
+                Manage your daily tasks professionally using Flask CRUD operations.
+            </p>
+
+            <a href="/add-task" class="start-btn">
+                Open TODO
+            </a>
+
+        </div>
+
+    </div>
+
+    {% include 'footer.html' %}
+
+</body>
+</html>
