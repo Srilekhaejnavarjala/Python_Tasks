@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        HRMS Login Portal
+    </title>
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='css/style.css') }}"
+    >
+
+</head>
+
+<body class="login-body">
+
+<!-- ================================================= -->
+<!-- BACKGROUND GLOW -->
+<!-- ================================================= -->
+
+<div class="bg-glow bg1"></div>
+<div class="bg-glow bg2"></div>
+
+<!-- ================================================= -->
+<!-- LOGIN CONTAINER -->
+<!-- ================================================= -->
+
+<div class="login-container">
+
+    <div class="login-card">
+
+        <!-- ========================================= -->
+        <!-- TITLE -->
+        <!-- ========================================= -->
+
+        <div class="login-header">
+
+            <h1>
+                HRMS Portal
+            </h1>
+
+            <p>
+                Workforce Intelligence & Access Control
+            </p>
+
+        </div>
+
+        <!-- ========================================= -->
+        <!-- LOGIN FORM -->
+        <!-- ========================================= -->
+
+        <form method="POST">
+
+            <!-- EMAIL -->
+
+            <div class="form-group">
+
+                <label>
+                    Employee Email
+                </label>
+
+                <input
+                    type="email"
+                    name="email"
+                    placeholder="Enter email"
+                    required
+                >
+
+            </div>
+
+            <!-- DESIGNATION -->
+
+            <div class="form-group">
+
+                <label>
+                    Designation
+                </label>
+
+                <input
+                    type="text"
+                    name="designation"
+                    placeholder="HR Manager / Project Lead"
+                    required
+                >
+
+            </div>
+
+            <!-- DEPARTMENT -->
+
+            <div class="form-group">
+
+                <label>
+                    Department
+                </label>
+
+                <select
+                    name="department_id"
+                    required
+                >
+
+                    {% for department in departments %}
+
+                    <option value="{{ department.id }}">
+
+                        {{ department.name }}
+
+                    </option>
+
+                    {% endfor %}
+
+                </select>
+
+            </div>
+
+            <!-- LOGIN BUTTON -->
+
+            <button
+                type="submit"
+                class="submit-btn"
+            >
+                Access Workforce Portal
+            </button>
+
+        </form>
+
+        <!-- ========================================= -->
+        <!-- ERROR MESSAGE -->
+        <!-- ========================================= -->
+
+        {% if error %}
+
+        <div class="login-error">
+
+            {{ error }}
+
+        </div>
+
+        {% endif %}
+
+    </div>
+
+</div>
+
+</body>
+</html>

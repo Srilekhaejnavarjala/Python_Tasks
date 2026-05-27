@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>NeoHR</title>
+
+    <!-- ================================================= -->
+    <!-- CSS -->
+    <!-- ================================================= -->
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='css/style.css') }}"
+    >
+
+    <!-- ================================================= -->
+    <!-- GOOGLE FONT -->
+    <!-- ================================================= -->
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
+
+    <!-- ================================================= -->
+    <!-- CHART JS -->
+    <!-- ================================================= -->
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+</head>
+
+<body>
+
+    <!-- ================================================= -->
+    <!-- BACKGROUND GLOW -->
+    <!-- ================================================= -->
+
+    <div class="bg-glow-1"></div>
+
+    <div class="bg-glow-2"></div>
+
+    <!-- ================================================= -->
+    <!-- NAVBAR -->
+    <!-- ================================================= -->
+
+    <nav class="navbar">
+
+        <!-- ============================================= -->
+        <!-- LEFT -->
+        <!-- ============================================= -->
+
+        <div class="nav-left">
+
+            <div class="logo">
+
+                Neo<span>HR</span>
+
+            </div>
+
+        </div>
+
+        <!-- ============================================= -->
+        <!-- CENTER -->
+        <!-- ============================================= -->
+
+        <div class="nav-center">
+
+            <a href="/dashboard">
+                Dashboard
+            </a>
+
+            <a href="/employees">
+                Employees
+            </a>
+
+            <a href="/attendance">
+                Attendance
+            </a>
+
+            <a href="/payroll">
+                Payroll
+            </a>
+
+            <a href="/analytics">
+                Analytics
+            </a>
+
+        </div>
+
+        <!-- ============================================= -->
+        <!-- RIGHT -->
+        <!-- ============================================= -->
+
+        <div class="nav-right">
+
+            <!-- SEARCH -->
+
+            <form action="/search">
+
+                <input
+                    type="text"
+                    name="query"
+                    placeholder="Search employee..."
+                    class="search-input"
+                >
+
+            </form>
+
+            <!-- ================================================= -->
+            <!-- NOTIFICATION CENTER -->
+            <!-- ================================================= -->
+
+            <div class="notification-wrapper">
+
+                <div class="notification-bell">
+
+                    🔔
+
+                    <span class="notification-count">
+                        3
+                    </span>
+
+                </div>
+
+                <div class="notification-dropdown">
+
+                    <div class="notification-item">
+                        ✅ Employee added successfully
+                    </div>
+
+                    <div class="notification-item">
+                        📈 Attendance updated
+                    </div>
+
+                    <div class="notification-item">
+                        💰 Payroll processed
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- ================================================= -->
+            <!-- USER PANEL -->
+            <!-- ================================================= -->
+
+            <div class="user-panel">
+
+                <!-- AVATAR -->
+
+                <div class="user-avatar avatar-2">
+
+                    {{ session.employee_name[:1] }}
+
+                </div>
+
+                <!-- USER INFO -->
+
+                <div>
+
+                    <h4>
+
+                        {{ session.employee_name }}
+
+                    </h4>
+
+                    <p>
+
+                        {{ session.designation }}
+
+                    </p>
+
+                </div>
+
+            </div>
+
+            <!-- ================================================= -->
+            <!-- LOGOUT -->
+            <!-- ================================================= -->
+
+            <a
+                href="/logout"
+                class="logout-btn"
+            >
+                Logout
+            </a>
+
+        </div>
+
+    </nav>
+
+    <!-- ================================================= -->
+    <!-- MAIN CONTENT -->
+    <!-- ================================================= -->
+
+    <main class="main-container">
+
+        <!-- ================================================= -->
+        <!-- LIVE PANEL -->
+        <!-- ================================================= -->
+
+        <div class="live-panel">
+
+            <div>
+
+                <h2 id="greeting-text">
+
+                    Welcome Back,
+                    {{ session.employee_name }}
+
+                </h2>
+
+                <p id="live-clock"></p>
+
+            </div>
+
+        </div>
+
+        <!-- ================================================= -->
+        <!-- PAGE CONTENT -->
+        <!-- ================================================= -->
+
+        {% block content %}
+
+        {% endblock %}
+
+    </main>
+
+    <!-- ================================================= -->
+    <!-- JS -->
+    <!-- ================================================= -->
+
+    <script
+        src="{{ url_for('static', filename='js/main.js') }}"
+    ></script>
+
+</body>
+
+</html>

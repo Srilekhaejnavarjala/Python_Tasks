@@ -1,0 +1,287 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+<!-- ================================================= -->
+<!-- PAGE HEADER -->
+<!-- ================================================= -->
+
+<div class="workspace-header">
+
+    <div>
+
+        <h2 class="workspace-title">
+            Attendance Intelligence Center
+        </h2>
+
+        <p class="workspace-subtitle">
+            Department-wise realtime workforce attendance tracking
+        </p>
+
+    </div>
+
+</div>
+
+<!-- ================================================= -->
+<!-- FILTER BAR -->
+<!-- ================================================= -->
+
+<div class="attendance-filter-bar">
+
+    <form
+        method="GET"
+        action="/attendance"
+        class="attendance-form"
+    >
+
+        <div class="filter-group">
+
+            <label>
+                Select Date
+            </label>
+
+            <input
+                type="date"
+                name="selected_date"
+                value="{{ selected_date }}"
+                class="date-input"
+                onchange="this.form.submit()"
+            >
+
+        </div>
+
+    </form>
+
+</div>
+
+<!-- ================================================= -->
+<!-- ATTENDANCE SUMMARY -->
+<!-- ================================================= -->
+
+<div class="stats-grid">
+
+    <div class="stat-card glow-card">
+
+        <div class="card-icon">
+            🟢
+        </div>
+
+        <p>Present Employees</p>
+
+        <h2>
+            {{ present_count }}
+        </h2>
+
+    </div>
+
+    <div class="stat-card glow-card">
+
+        <div class="card-icon">
+            🔴
+        </div>
+
+        <p>Absent Employees</p>
+
+        <h2>
+            {{ absent_count }}
+        </h2>
+
+    </div>
+
+    <div class="stat-card glow-card">
+
+        <div class="card-icon">
+            🟡
+        </div>
+
+        <p>Employees On Leave</p>
+
+        <h2>
+            {{ leave_count }}
+        </h2>
+
+    </div>
+
+</div>
+
+<!-- ================================================= -->
+<!-- ATTENDANCE TABLE -->
+<!-- ================================================= -->
+
+<div class="table-container glass-table">
+
+    <table class="employee-table">
+
+        <thead>
+
+            <tr>
+
+                <th>Employee</th>
+
+                <th>Status</th>
+
+                <th>Date</th>
+
+                {% if session.designation and (
+                    "Manager" in session.designation
+                    or
+                    "Lead" in session.designation
+                ) %}
+
+                <th>Actions</th>
+
+                {% endif %}
+
+            </tr>
+
+        </thead>
+
+        <tbody>
+
+            {% if attendance %}
+
+                {% for record in attendance %}
+
+                <tr class="table-row-hover">
+
+                    <!-- EMPLOYEE -->
+
+                    <td>
+
+                        <div class="employee-cell">
+
+                            <div class="mini-avatar avatar-{{ loop.index % 5 }}">
+
+                                {{ record.employee_name[0] }}
+
+                            </div>
+
+                            <div>
+
+                                <h4>
+                                    {{ record.employee_name }}
+                                </h4>
+
+                            </div>
+
+                        </div>
+
+                    </td>
+
+                    <!-- STATUS -->
+
+                    <td>
+
+                        {% if record.status|lower == "present" %}
+
+                        <span class="status-badge status-present">
+                            ● Present
+                        </span>
+
+                        {% elif record.status|lower == "absent" %}
+
+                        <span class="status-badge status-absent">
+                            ● Absent
+                        </span>
+
+                        {% elif record.status|lower == "leave" %}
+
+                        <span class="status-badge status-leave">
+                            ● Leave
+                        </span>
+
+                        {% else %}
+
+                        <span class="status-badge status-pending">
+                            ● Not Marked
+                        </span>
+
+                        {% endif %}
+
+                    </td>
+
+                    <!-- DATE -->
+
+                    <td>
+
+                        {{ record.date }}
+
+                    </td>
+
+                    <!-- ACTIONS -->
+
+                    {% if session.designation and (
+                        "Manager" in session.designation
+                        or
+                        "Lead" in session.designation
+                    ) %}
+
+                    <td>
+
+                        <button class="btn btn-primary">
+
+                            Update
+
+                        </button>
+
+                    </td>
+
+                    {% endif %}
+
+                </tr>
+
+                {% endfor %}
+
+            {% else %}
+
+                <tr>
+
+                    <td colspan="4" class="empty-state">
+
+                        No attendance records found for selected date
+
+                    </td>
+
+                </tr>
+
+            {% endif %}
+
+        </tbody>
+
+    </table>
+
+</div>
+
+<!-- ================================================= -->
+<!-- LIVE INSIGHT PANEL -->
+<!-- ================================================= -->
+
+<div class="insight-panel">
+
+    <h3>
+        Live Attendance Insights
+    </h3>
+
+    <div class="insight-feed">
+
+        <div class="insight-item">
+            🟢 Workforce attendance stable today
+        </div>
+
+        <div class="insight-item">
+            📈 Department engagement improved
+        </div>
+
+        <div class="insight-item">
+            🚀 Team productivity remains high
+        </div>
+
+        <div class="insight-item">
+            ⚠ Pending attendance updates detected
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

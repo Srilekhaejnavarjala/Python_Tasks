@@ -1,0 +1,290 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+
+
+<!-- ================================================= -->
+<!-- STATS GRID -->
+<!-- ================================================= -->
+
+<section class="stats-grid">
+
+    <div class="stat-card">
+
+        <p>Total Employees</p>
+
+        <h2>{{ employees|length }}</h2>
+
+    </div>
+
+    <div class="stat-card">
+
+        <p>Total Departments</p>
+
+        <h2>{{ departments|length }}</h2>
+
+    </div>
+
+    <div class="stat-card">
+
+        <p>Attendance Records</p>
+
+        <h2>{{ attendance|length }}</h2>
+
+    </div>
+
+    <div class="stat-card">
+
+        <p>Payroll Records</p>
+
+        <h2>{{ salaries|length }}</h2>
+
+    </div>
+
+</section>
+
+<!-- ================================================= -->
+<!-- WORKSPACE TITLE -->
+<!-- ================================================= -->
+
+<div class="workspace-header">
+
+    <div>
+
+        <h2 class="workspace-title">
+
+            Employee Workspace
+
+        </h2>
+
+        <p class="workspace-subtitle">
+
+            Workforce overview and department activity
+
+        </p>
+
+    </div>
+
+</div>
+
+<!-- ================================================= -->
+<!-- LIVE ACTIVITY FEED -->
+<!-- ================================================= -->
+
+<section class="activity-section">
+
+    <div class="activity-header">
+
+        <h2>
+            Live Workforce Activity
+        </h2>
+
+        <p>
+            Realtime employee operations & enterprise events
+        </p>
+
+    </div>
+
+    <div class="activity-feed">
+
+        <div class="activity-item">
+
+            <div class="activity-icon">
+                👨‍💼
+            </div>
+
+            <div class="activity-content">
+
+                <h4>
+                    New employee onboarded
+                </h4>
+
+                <p>
+                    HR Department added a new workforce member
+                </p>
+
+            </div>
+
+            <span class="activity-time">
+                2 min ago
+            </span>
+
+        </div>
+
+        <div class="activity-item">
+
+            <div class="activity-icon">
+                📈
+            </div>
+
+            <div class="activity-content">
+
+                <h4>
+                    Attendance updated
+                </h4>
+
+                <p>
+                    Daily attendance synced successfully
+                </p>
+
+            </div>
+
+            <span class="activity-time">
+                10 min ago
+            </span>
+
+        </div>
+
+        <div class="activity-item">
+
+            <div class="activity-icon">
+                💰
+            </div>
+
+            <div class="activity-content">
+
+                <h4>
+                    Payroll processed
+                </h4>
+
+                <p>
+                    Monthly salary transactions completed
+                </p>
+
+            </div>
+
+            <span class="activity-time">
+                25 min ago
+            </span>
+
+        </div>
+
+        <div class="activity-item">
+
+            <div class="activity-icon">
+                🟢
+            </div>
+
+            <div class="activity-content">
+
+                <h4>
+                    Department productivity improved
+                </h4>
+
+                <p>
+                    Engineering team reached weekly milestone
+                </p>
+
+            </div>
+
+            <span class="activity-time">
+                1 hour ago
+            </span>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- ================================================= -->
+<!-- EMPLOYEE GRID -->
+<!-- ================================================= -->
+
+<section class="employee-grid">
+
+    {% for employee in employees[:6] %}
+
+    <div class="employee-card">
+
+        <!-- ========================================= -->
+        <!-- TOP -->
+        <!-- ========================================= -->
+
+        <div class="employee-top">
+
+            <!-- Dynamic Avatar -->
+
+            <div class="avatar avatar-{{ loop.index % 5 }}">
+
+                {{ employee.name[:1] }}
+
+            </div>
+
+            <div class="employee-info">
+
+                <h3>
+                    {{ employee.name }}
+                </h3>
+
+                <p>
+                    {{ employee.designation }}
+                </p>
+
+            </div>
+
+        </div>
+
+        <!-- ========================================= -->
+        <!-- DETAILS -->
+        <!-- ========================================= -->
+
+        <div class="employee-details">
+
+            <p>
+                📧 {{ employee.email }}
+            </p>
+
+            <p>
+                📞 {{ employee.phone }}
+            </p>
+
+            <p>
+                🏢 Department ID:
+                {{ employee.department_id }}
+            </p>
+
+        </div>
+
+        <!-- ========================================= -->
+        <!-- STATUS -->
+        <!-- ========================================= -->
+
+        <div class="employee-status">
+
+            <span class="status-dot"></span>
+
+            Active Employee
+
+        </div>
+
+        <!-- ========================================= -->
+        <!-- ACTIONS -->
+        <!-- ========================================= -->
+
+        <div class="action-buttons">
+
+            <a
+                href="#"
+                class="btn btn-primary"
+            >
+                View Profile
+            </a>
+
+            <a
+                href="/delete-employee/{{ employee.id }}"
+                class="btn btn-danger"
+            >
+                Remove
+            </a>
+
+        </div>
+
+    </div>
+
+    {% endfor %}
+
+</section>
+
+{% endblock %}

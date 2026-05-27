@@ -1,0 +1,131 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+<!-- ================================================= -->
+<!-- HERO SECTION -->
+<!-- ================================================= -->
+
+<section class="hero">
+
+    <h1>
+        Employee Intelligence Hub
+    </h1>
+
+    <p>
+        Explore workforce profiles, monitor departments,
+        and manage employee operations in realtime.
+    </p>
+
+</section>
+
+<!-- ================================================= -->
+<!-- EMPLOYEE GRID -->
+<!-- ================================================= -->
+
+<section class="employee-grid">
+
+    {% for employee in employees %}
+
+    <div class="employee-card">
+
+        <!-- ========================================= -->
+        <!-- TOP SECTION -->
+        <!-- ========================================= -->
+
+        <div class="employee-top">
+
+            <!-- Dynamic Avatar -->
+            <div class="avatar avatar-{{ loop.index % 5 }}">
+
+                {{ employee.name[0] }}
+
+            </div>
+
+            <div class="employee-info">
+
+                <h3>{{ employee.name }}</h3>
+
+                <p>{{ employee.designation }}</p>
+
+            </div>
+
+        </div>
+
+        <!-- ========================================= -->
+        <!-- DETAILS -->
+        <!-- ========================================= -->
+
+        <div class="employee-details">
+
+            <p>
+                📧 {{ employee.email }}
+            </p>
+
+            <p>
+                📞 {{ employee.phone }}
+            </p>
+
+            <p>
+                🏢 Department ID:
+                {{ employee.department_id }}
+            </p>
+
+        </div>
+
+        <!-- ========================================= -->
+        <!-- PRODUCTIVITY BAR -->
+        <!-- ========================================= -->
+
+        <div style="margin-top:20px;">
+
+            <p
+                style="
+                    margin-bottom:10px;
+                    color:#cbd5e1;
+                    font-size:14px;
+                "
+            >
+                Productivity Score
+            </p>
+
+            <div class="progress-bar">
+
+                <div
+                    class="progress"
+                    style="width: {{ 60 + (loop.index * 5) % 35 }}%;"
+                ></div>
+
+            </div>
+
+        </div>
+
+        <!-- ========================================= -->
+        <!-- ACTION BUTTONS -->
+        <!-- ========================================= -->
+
+        <div class="action-buttons">
+
+            <a
+                href="/employee/{{ employee.id }}"
+                class="btn btn-primary"
+            >
+                View Profile
+            </a>
+
+            <a
+                href="/delete-employee/{{ employee.id }}"
+                class="btn btn-danger"
+            >
+                Remove
+            </a>
+
+        </div>
+
+    </div>
+
+    {% endfor %}
+
+</section>
+
+{% endblock %}

@@ -1,0 +1,164 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+<div class="profile-wrapper">
+
+    <!-- ====================================== -->
+    <!-- LEFT PROFILE CARD -->
+    <!-- ====================================== -->
+
+    <div class="profile-card glass-card">
+
+        <div class="profile-avatar avatar-{{ employee.id % 5 }}">
+
+            {{ employee.name[0] }}
+
+        </div>
+
+        <h2>
+            {{ employee.name }}
+        </h2>
+
+        <p class="profile-role">
+            {{ employee.designation }}
+        </p>
+
+        <div class="profile-info">
+
+            <p>📧 {{ employee.email }}</p>
+
+            <p>📞 {{ employee.phone }}</p>
+
+            <p>🏢 Department ID:
+                {{ employee.department_id }}
+            </p>
+
+            <p>👨‍💼 Manager:
+                {{ employee.manager }}
+            </p>
+
+            <p>⭐ Experience:
+                {{ employee.experience }}
+            </p>
+
+        </div>
+
+    </div>
+
+    <!-- ====================================== -->
+    <!-- RIGHT ANALYTICS -->
+    <!-- ====================================== -->
+
+    <div class="profile-analytics">
+
+        <!-- PERFORMANCE -->
+
+        <div class="metric-card">
+
+            <h3>Performance Score</h3>
+
+            <div class="metric-circle">
+
+                {{ employee.performance }}%
+
+            </div>
+
+        </div>
+
+        <!-- ATTENDANCE -->
+
+        <div class="metric-card">
+
+            <h3>Attendance Score</h3>
+
+            <div class="metric-circle">
+
+                {{ employee.attendance_score }}%
+
+            </div>
+
+        </div>
+
+        <!-- PRODUCTIVITY -->
+
+        <div class="metric-card">
+
+            <h3>Productivity</h3>
+
+            <div class="metric-circle">
+
+                {{ employee.productivity }}%
+
+            </div>
+
+        </div>
+
+        <!-- SKILLS -->
+
+        <div class="skills-card">
+
+            <h3>Skills & Technologies</h3>
+
+            <div class="skills-grid">
+
+                {% for skill in employee.skills %}
+
+                <span class="skill-badge">
+
+                    {{ skill }}
+
+                </span>
+
+                {% endfor %}
+
+            </div>
+            <!-- ====================================== -->
+             <!-- TIMESHEET TRACKER -->
+              <!-- ====================================== -->
+               <div class="timesheet-card">
+                <h3>
+                    Task & Timesheet Tracker
+                </h3>
+                <table class="timesheet-table">
+                    <thead>
+                        <tr>
+                            <th>Task</th>
+                            <th>Status</th>
+                            <th>Hours</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for task in employee.tasks %}
+                        <tr>
+                            <td>
+                                {{ task.task }}
+                            </td>
+                            <td>
+                                {% if task.status == "Completed" %}
+                                
+                                <span class="task-completed">
+                                    Completed
+                                </span>
+                                {% elif task.status == "In Progress" %}
+                                <span class="task-progress">
+                                    In Progress
+                                </span>
+                                {% else %}
+                                <span class="task-pending">
+                                    Pending
+                                </span>
+                                {% endif %}
+                            </td>
+                            <td>
+                                {{ task.hours }}h
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

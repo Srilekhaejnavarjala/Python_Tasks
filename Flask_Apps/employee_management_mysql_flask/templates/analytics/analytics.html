@@ -1,0 +1,552 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+<!-- ================================================= -->
+<!-- PAGE HEADER -->
+<!-- ================================================= -->
+
+<div class="workspace-header">
+
+    <div>
+
+        <h2 class="workspace-title">
+            Workforce Analytics Center
+        </h2>
+
+        <p class="workspace-subtitle">
+            Live enterprise intelligence & workforce insights
+        </p>
+
+    </div>
+
+</div>
+
+<!-- ================================================= -->
+<!-- KPI CARDS -->
+<!-- ================================================= -->
+
+<section class="stats-grid">
+
+    <div class="stat-card glow-card">
+
+        <p>Total Employees</p>
+
+        <h2 class="counter" data-target="{{ employees|length }}">
+            0
+        </h2>
+
+    </div>
+
+    <div class="stat-card glow-card">
+
+        <p>Total Departments</p>
+
+        <h2 class="counter" data-target="{{ departments|length }}">
+            0
+        </h2>
+
+    </div>
+
+    <div class="stat-card glow-card">
+
+        <p>Attendance Records</p>
+
+        <h2 class="counter" data-target="{{ attendance|length }}">
+            0
+        </h2>
+
+    </div>
+
+    <div class="stat-card glow-card">
+
+        <p>Payroll Records</p>
+
+        <h2 class="counter" data-target="{{ salaries|length }}">
+            0
+        </h2>
+
+    </div>
+
+</section>
+
+<!-- ================================================= -->
+<!-- CHART GRID -->
+<!-- ================================================= -->
+
+<div class="analytics-grid">
+
+    <!-- DEPARTMENT CHART -->
+
+    <div class="chart-card">
+
+        <h3>Department Distribution</h3>
+
+        <canvas id="departmentChart"></canvas>
+
+    </div>
+
+    <!-- SALARY CHART -->
+
+    <div class="chart-card">
+
+        <h3>Salary Intelligence</h3>
+
+        <canvas id="salaryChart"></canvas>
+
+    </div>
+
+    <!-- ATTENDANCE -->
+
+    <div class="chart-card">
+
+        <h3>Attendance Insights</h3>
+
+        <canvas id="attendanceChart"></canvas>
+
+    </div>
+
+    <!-- WORKFORCE GROWTH -->
+
+    <div class="chart-card">
+
+        <h3>Workforce Trend</h3>
+
+        <canvas id="growthChart"></canvas>
+
+    </div>
+
+</div>
+
+<!-- ================================================= -->
+<!-- LIVE INSIGHTS -->
+<!-- ================================================= -->
+
+<div class="insight-panel">
+
+    <h3>AI Workforce Insights</h3>
+
+    <div class="insight-feed">
+
+        <div class="insight-item">
+            🚀 Workforce engagement increased this month
+        </div>
+
+        <div class="insight-item">
+            📈 Engineering department has highest workforce
+        </div>
+
+        <div class="insight-item">
+            💰 Payroll distribution optimized successfully
+        </div>
+
+        <div class="insight-item">
+            🟢 Attendance consistency improved across teams
+        </div>
+
+    </div>
+
+</div>
+
+<!-- ================================================= -->
+<!-- CHART JS -->
+<!-- ================================================= -->
+
+<script>
+
+<!-- ================================================= -->
+<!-- DEPARTMENT CHART -->
+<!-- ================================================= -->
+
+const deptCtx = document.getElementById(
+    'departmentChart'
+);
+
+new Chart(deptCtx, {
+
+    type: 'doughnut',
+
+    data: {
+
+        labels: {{ department_labels | tojson }},
+
+        datasets: [{
+
+            data: {{ department_counts | tojson }},
+
+            backgroundColor: [
+
+                '#00F5FF',
+                '#8B5CF6',
+                '#FF4D6D',
+                '#FFD60A',
+                '#00E5A0',
+                '#FF6B35',
+                '#A855F7',
+                '#22D3EE'
+            ],
+
+            borderWidth: 0,
+
+            hoverOffset: 20
+        }]
+    },
+
+    options: {
+
+        responsive: true,
+
+        cutout: '65%',
+
+        plugins: {
+
+            legend: {
+
+                position: 'bottom',
+
+                labels: {
+
+                    color: "white",
+
+                    padding: 20
+                }
+            }
+        }
+    }
+});
+
+<!-- ================================================= -->
+<!-- SALARY CHART -->
+<!-- ================================================= -->
+
+const salaryCtx = document.getElementById(
+    'salaryChart'
+);
+
+new Chart(salaryCtx, {
+
+    type: 'bar',
+
+    data: {
+
+        labels: {{ salary_labels | tojson }},
+
+        datasets: [{
+
+            label: 'Average Salary',
+
+            data: {{ salary_values | tojson }},
+
+            backgroundColor: [
+
+                '#00F5FF',
+                '#8B5CF6',
+                '#FF4D6D',
+                '#FFD60A',
+                '#00E5A0',
+                '#FF6B35',
+                '#A855F7',
+                '#22D3EE'
+            ],
+
+            borderRadius: 14
+        }]
+    },
+
+    options: {
+
+        responsive: true,
+
+        plugins: {
+
+            legend: {
+
+                labels: {
+
+                    color: "white"
+                }
+            }
+        },
+
+        scales: {
+
+            y: {
+
+                ticks: {
+
+                    color: "white"
+                },
+
+                grid: {
+
+                    color: 'rgba(255,255,255,0.08)'
+                }
+            },
+
+            x: {
+
+                ticks: {
+
+                    color: "white"
+                },
+
+                grid: {
+
+                    display: false
+                }
+            }
+        }
+    }
+});
+
+<!-- ================================================= -->
+<!-- ATTENDANCE CHART -->
+<!-- ================================================= -->
+
+const attendanceCtx = document.getElementById(
+    'attendanceChart'
+);
+
+const attendanceGradient1 = attendanceCtx
+    .getContext('2d')
+    .createLinearGradient(0,0,0,400);
+
+attendanceGradient1.addColorStop(
+    0,
+    '#00F5A0'
+);
+
+attendanceGradient1.addColorStop(
+    1,
+    '#00D9F5'
+);
+
+const attendanceGradient2 = attendanceCtx
+    .getContext('2d')
+    .createLinearGradient(0,0,0,400);
+
+attendanceGradient2.addColorStop(
+    0,
+    '#FF512F'
+);
+
+attendanceGradient2.addColorStop(
+    1,
+    '#DD2476'
+);
+
+const attendanceGradient3 = attendanceCtx
+    .getContext('2d')
+    .createLinearGradient(0,0,0,400);
+
+attendanceGradient3.addColorStop(
+    0,
+    '#FFD200'
+);
+
+attendanceGradient3.addColorStop(
+    1,
+    '#F7971E'
+);
+
+new Chart(attendanceCtx, {
+
+    type: 'doughnut',
+
+    data: {
+
+        labels: [
+
+            'Present',
+            'Absent',
+            'Leave'
+        ],
+
+        datasets: [{
+
+            data: [
+                {{ present_count }},
+                {{ absent_count }},
+                {{ leave_count }}
+            ],
+
+            backgroundColor: [
+
+                attendanceGradient1,
+                attendanceGradient2,
+                attendanceGradient3
+            ],
+
+            borderWidth: 0,
+
+            hoverOffset: 20
+        }]
+    },
+
+    options: {
+
+        responsive: true,
+
+        cutout: '72%',
+
+        plugins: {
+
+            legend: {
+
+                position: 'bottom',
+
+                labels: {
+
+                    color: 'white',
+
+                    padding: 25,
+
+                    font: {
+
+                        size: 14
+                    }
+                }
+            }
+        }
+    }
+});
+
+<!-- ================================================= -->
+<!-- WORKFORCE GROWTH -->
+<!-- ================================================= -->
+
+const growthCtx = document.getElementById(
+    'growthChart'
+);
+
+new Chart(growthCtx, {
+
+    type: 'line',
+
+    data: {
+
+        labels: [
+
+            'Jan',
+            'Feb',
+            'Mar',
+            'Apr',
+            'May',
+            'Jun'
+        ],
+
+        datasets: [{
+
+            label: 'Employees',
+
+            data: [
+
+                20,
+                28,
+                35,
+                42,
+                50,
+                62
+            ],
+
+            borderColor: '#00F5FF',
+
+            backgroundColor: 'rgba(0,245,255,0.15)',
+
+            fill: true,
+
+            tension: 0.4,
+
+            pointBackgroundColor: '#ffffff',
+
+            pointRadius: 5
+        }]
+    },
+
+    options: {
+
+        responsive: true,
+
+        plugins: {
+
+            legend: {
+
+                labels: {
+
+                    color: "white"
+                }
+            }
+        },
+
+        scales: {
+
+            y: {
+
+                ticks: {
+
+                    color: "white"
+                },
+
+                grid: {
+
+                    color: 'rgba(255,255,255,0.08)'
+                }
+            },
+
+            x: {
+
+                ticks: {
+
+                    color: "white"
+                },
+
+                grid: {
+
+                    display: false
+                }
+            }
+        }
+    }
+});
+
+<!-- ================================================= -->
+<!-- COUNTER ANIMATION -->
+<!--================================================= -->
+
+const counters = document.querySelectorAll(
+    '.counter'
+);
+
+counters.forEach(counter => {
+
+    counter.innerText = '0';
+
+    const updateCounter = () => {
+
+        const target = +counter.getAttribute(
+            'data-target'
+        );
+
+        const current = +counter.innerText;
+
+        const increment = target / 50;
+
+        if(current < target){
+
+            counter.innerText = `${Math.ceil(
+                current + increment
+            )}`;
+
+            setTimeout(updateCounter, 30);
+
+        }else{
+
+            counter.innerText = target;
+        }
+    };
+
+    updateCounter();
+});
+
+</script>
+{% endblock %}

@@ -1,0 +1,115 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+<!-- ================================================= -->
+<!-- HERO SECTION -->
+<!-- ================================================= -->
+
+<section class="hero">
+
+    <h1>
+        Payroll Intelligence Center
+    </h1>
+
+    <p>
+        Manage employee salaries, bonuses,
+        and enterprise payroll operations.
+    </p>
+
+</section>
+
+<!-- ================================================= -->
+<!-- PAYROLL GRID -->
+<!-- ================================================= -->
+
+<section class="employee-grid">
+
+    {% for salary in salaries %}
+
+    <div class="employee-card">
+
+        <!-- ========================================= -->
+        <!-- TOP -->
+        <!-- ========================================= -->
+
+        <div class="employee-top">
+
+            <div class="avatar avatar-{{ loop.index % 5 }}">
+
+                ₹
+
+            </div>
+
+            <div class="employee-info">
+
+                <h3>
+                    Employee ID:
+                    {{ salary.employee_id }}
+                </h3>
+
+                <p>
+                    Payroll Record
+                </p>
+
+            </div>
+
+        </div>
+
+        <!-- ========================================= -->
+        <!-- DETAILS -->
+        <!-- ========================================= -->
+
+        <div class="employee-details">
+
+            <p>
+                💰 Salary:
+                ₹ {{ salary.salary }}
+            </p>
+
+            <p>
+                🎁 Bonus:
+                ₹ {{ salary.bonus }}
+            </p>
+
+            <p>
+                📈 Total:
+                ₹ {{ salary.salary + salary.bonus }}
+            </p>
+
+        </div>
+
+        <!-- ========================================= -->
+        <!-- PAYROLL BAR -->
+        <!-- ========================================= -->
+
+        <div style="margin-top:20px;">
+
+            <p
+                style="
+                    margin-bottom:10px;
+                    color:#cbd5e1;
+                    font-size:14px;
+                "
+            >
+                Payroll Distribution
+            </p>
+
+            <div class="progress-bar">
+
+                <div
+                    class="progress"
+                    style="width: {{ 50 + (loop.index * 7) % 45 }}%;"
+                ></div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    {% endfor %}
+
+</section>
+
+{% endblock %}
