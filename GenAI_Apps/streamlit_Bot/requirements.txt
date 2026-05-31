@@ -1,0 +1,6 @@
+fastapi
+dotenv
+streamlit
+requests
+openai
+google-genai
