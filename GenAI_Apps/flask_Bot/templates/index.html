@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Gemini AI Workspace</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+<body>
+
+<div class="background-glow"></div>
+
+<div class="container">
+
+    <div class="orb"></div>
+
+    <h1>🤖 Gemini AI Workspace</h1>
+
+    <p class="subtitle">
+        Chat, Analyze and Summarize with Gemini AI
+    </p>
+
+    <div class="mode-buttons">
+
+        <button
+            id="chatBtn"
+            class="mode-btn active"
+            onclick="showChat()"
+            type="button">
+
+            💬 Ask AI
+
+        </button>
+
+        <button
+            id="summaryBtn"
+            class="mode-btn"
+            onclick="showSummary()"
+            type="button">
+
+            📝 AI Summary
+
+        </button>
+
+    </div>
+
+    <!-- CHAT -->
+
+    <div id="chatSection">
+
+        <form method="POST">
+
+            <input
+                type="hidden"
+                name="mode"
+                value="chat"
+            >
+
+            <input
+                type="text"
+                name="question"
+                placeholder="Ask anything..."
+                required
+            >
+
+            <button class="submit-btn">
+                Ask AI
+            </button>
+
+        </form>
+
+    </div>
+
+    <!-- SUMMARY -->
+
+    <div id="summarySection" style="display:none;">
+
+        <form method="POST">
+
+            <input
+                type="hidden"
+                name="mode"
+                value="summary"
+            >
+
+            <textarea
+                name="article"
+                placeholder="Paste article, notes or research paper..."
+                required
+            ></textarea>
+
+            <button class="submit-btn">
+                Generate Summary
+            </button>
+
+        </form>
+
+    </div>
+
+    {% if response %}
+
+    <div class="response-box">
+
+        <h2>✨ AI Response</h2>
+
+        <p>{{ response }}</p>
+
+    </div>
+
+    {% endif %}
+
+</div>
+
+<script>
+
+function showChat(){
+
+    document.getElementById("chatSection").style.display = "block";
+    document.getElementById("summarySection").style.display = "none";
+
+    document.getElementById("chatBtn").classList.add("active");
+    document.getElementById("summaryBtn").classList.remove("active");
+
+}
+
+function showSummary(){
+
+    document.getElementById("chatSection").style.display = "none";
+    document.getElementById("summarySection").style.display = "block";
+
+    document.getElementById("summaryBtn").classList.add("active");
+    document.getElementById("chatBtn").classList.remove("active");
+
+}
+
+</script>
+
+</body>
+</html>
