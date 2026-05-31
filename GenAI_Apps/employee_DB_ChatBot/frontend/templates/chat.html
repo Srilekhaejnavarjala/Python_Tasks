@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Employee AI Assistant</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="header">
+
+        <div class="ai-orb"></div>
+
+        <h1>🤖 Employee AI Assistant</h1>
+
+        <p>
+            Talk naturally with your employee database
+        </p>
+
+    </div>
+
+    {% if chat_history|length == 0 %}
+
+    <div class="welcome-card">
+
+        <h2>Welcome 👋</h2>
+
+        <p>
+            Ask questions about Employees, Salaries,
+            Attendance and Departments.
+        </p>
+
+        <div class="suggestions">
+
+            <div class="card">
+                Who is the highest paid employee?
+            </div>
+
+            <div class="card">
+                Show all Cybersecurity employees
+            </div>
+
+            <div class="card">
+                What is the average salary?
+            </div>
+
+            <div class="card">
+                Who was absent today?
+            </div>
+
+        </div>
+
+    </div>
+
+    {% endif %}
+
+    <div id="chat-box">
+
+        {% for chat in chat_history %}
+
+        <div class="user-message">
+
+            👤 {{ chat.question }}
+
+        </div>
+
+        <div class="bot-message">
+
+            🤖 {{ chat.answer }}
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+    <form method="POST">
+
+        <input
+            id="questionInput"
+            type="text"
+            name="question"
+            placeholder="Ask about employees..."
+            autocomplete="off"
+            required
+        >
+
+        <button type="submit">
+
+            Send 🚀
+
+        </button>
+
+    </form>
+
+</div>
+
+<script>
+
+const chatBox = document.getElementById("chat-box");
+
+chatBox.scrollTop = chatBox.scrollHeight;
+
+document.querySelectorAll(".card").forEach(card => {
+
+    card.addEventListener("click", function(){
+
+        document.getElementById("questionInput").value =
+            this.innerText;
+
+    });
+
+});
+
+</script>
+
+</body>
+
+</html>
